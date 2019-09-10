@@ -24,32 +24,32 @@ function attributeOrNull(d, a1, a2) {
 var run = async function(year, term, yearTerm, url, detailed) {
   const csvWriter = createCsvWriter({
     path: yearTerm + ".csv",
-    header: [
-        {id: 'year', title: 'Year'},
-        {id: 'term', title: 'Term'},
-        {id: 'yearTerm', title: 'YearTerm'},
-        {id: 'subject', title: 'Subject'},
-        {id: 'number', title: 'Number'},
-        {id: 'name', title: 'Name'},
-        {id: 'description', title: 'Description'},
-        {id: 'creditHours', title: 'Credit Hours'},
-        {id: 'sectionInfo', title: 'Section Info'},
-        {id: 'degreeAttributes', title: 'Degree Attributes'},
-        {id: 'scheduleInformation', title: 'Schedule Information'},
+    header: [      
+      {id: 'year', title: 'Year'},
+      {id: 'term', title: 'Term'},
+      {id: 'yearTerm', title: 'YearTerm'},
+      {id: 'subject', title: 'Subject'},
+      {id: 'number', title: 'Number'},
+      {id: 'name', title: 'Name'},
+      {id: 'description', title: 'Description'},
+      {id: 'creditHours', title: 'Credit Hours'},
+      {id: 'sectionInfo', title: 'Section Info'},
+      {id: 'degreeAttributes', title: 'Degree Attributes'},
+      {id: 'scheduleInformation', title: 'Schedule Information'},
 
-        {id: 'crn', title: 'CRN'},
-        {id: 'sectionNumber', title: 'Section'},
-        {id: 'statusCode', title: 'Status Code'},
-        {id: 'partOfTerm', title: 'Part of Term'},
-        {id: 'sectionStatusCode', title: 'Section Status'},
-        {id: 'enrollmentStatus', title: 'Enrollment Status'},
-        {id: 'type', title: 'Type'},
-        {id: 'start', title: 'Start Time'},
-        {id: 'end', title: 'End Time'},
-        {id: 'daysOfTheWeek', title: 'Days of Week'},
-        {id: 'roomNumber', title: 'Room'},
-        {id: 'buildingName', title: 'Building'},
-        {id: 'instructors', title: 'Instructors'},
+      {id: 'crn', title: 'CRN'},
+      {id: 'sectionNumber', title: 'Section'},
+      {id: 'statusCode', title: 'Status Code'},
+      {id: 'partOfTerm', title: 'Part of Term'},
+      {id: 'sectionStatusCode', title: 'Section Status'},
+      {id: 'enrollmentStatus', title: 'Enrollment Status'},
+      {id: 'type', title: 'Type'},
+      {id: 'start', title: 'Start Time'},
+      {id: 'end', title: 'End Time'},
+      {id: 'daysOfTheWeek', title: 'Days of Week'},
+      {id: 'roomNumber', title: 'Room'},
+      {id: 'buildingName', title: 'Building'},
+      {id: 'instructors', title: 'Instructors'},
     ]
   });
 
@@ -62,8 +62,6 @@ var run = async function(year, term, yearTerm, url, detailed) {
     var subjTag = d[i];
     var subject = subjTag["@_id"];
     var href = subjTag["@_href"];
-
-    if (subject != "YDSH") { continue; }
     
     var xml2 = await rp(href); await sleep(1000);
     var r2 = fastXmlParser.parse(xml2, {ignoreAttributes: false});
