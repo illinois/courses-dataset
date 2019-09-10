@@ -37,7 +37,7 @@ The course **schedule** contains all data from the catalog for each section foll
 | ... (see catalog above) ... | 41758 | AD1 | A | 1 | A | Open | DIS | 9:00 AM | 9:50 AM | F | 329 | Gregory Hall | Boonsripaisal, S;Sharif, L |
 | ... |
 | ... (see catalog above) ... | 71476 | AL1 | A | 1 | A | CrossListOpen | LEC | 12:00 PM | 12:50 PM | MWF | THEAT | Lincoln Hall | Fagen-Ulmschneider, W;Flanagan, K |
-| ... (see catalog above) ... | 71476 | AYA | A | 1 | A | CrossListOpen | LBD | 2:00 PM | 3:50 PM | W | 1038 | Foreign Languages Building | Zhou, W |
+| ... (see catalog above) ... | 71667 | AYA | A | 1 | A | CrossListOpen | LBD | 2:00 PM | 3:50 PM | W | 1038 | Foreign Languages Building | Zhou, W |
 | ... |
  
 
