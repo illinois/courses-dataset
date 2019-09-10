@@ -20,6 +20,29 @@ function attributeOrNull(d, a1, a2) {
 }
 
 
+/*
+Using `fast-xml-parser`, different HTML blocks may be returned as different objects.
+
+Consider the XML:
+  <instructors>
+    <instructor lastName="Fagen-Ulmschneider" firstName="W">Fagen-Ulmschneider, W</instructor>
+    <instructor lastName="Flanagan" firstName="K">Flanagan, K</instructor>
+  </instructors>
+
+The query ["instructors"]["instructor"] will:
+- If there are 2+ <instructor ...> tags: Returns an array of objects, each object is a single <instructor ...>
+- If there is exactly 1 <instructor ...> tag: Returns an object of that instructor
+- If there is an empty instructor tag <instructors /> tag (eg: zero <instructor ...>): Returns `undefined`
+
+This function normalizes the result so an array is ALWAYS returned by this function.
+*/
+function xmlTagToArray(d) {
+  if (!d) { return []; }
+  else if (!Array.isArray(d)) { return [d]; }
+  else { return d; }
+}
+
+
 
 var run = async function(year, term, yearTerm, url, detailed) {
   const csvWriter = createCsvWriter({
@@ -65,7 +88,7 @@ var run = async function(year, term, yearTerm, url, detailed) {
     
     var xml2 = await rp(href); await sleep(1000);
     var r2 = fastXmlParser.parse(xml2, {ignoreAttributes: false});
-    var d2 = r2["ns2:subject"]["courses"]["course"];
+    var d2 = xmlTagToArray( r2["ns2:subject"]["courses"]["course"] );
 
     for (var j = 0; j < d2.length; j++) {
       var course = {};
@@ -94,8 +117,7 @@ var run = async function(year, term, yearTerm, url, detailed) {
           course.degreeAttributes = decode(attributeOrNull(d3, "sectionDegreeAttributes"));
           course.scheduleInformation = decode(attributeOrNull(d3, "classScheduleInformation"));
 
-          var sectionTagList = r3["ns2:course"]["sections"]["section"];
-          if (!Array.isArray(sectionTagList)) { sectionTagList = [sectionTagList]; }
+          var sectionTagList = xmlTagToArray(r3["ns2:course"]["sections"]["section"]);
           for (var k = 0; k < sectionTagList.length; k++) {
             var sectionTag = sectionTagList[k];
 
@@ -113,8 +135,7 @@ var run = async function(year, term, yearTerm, url, detailed) {
             section.sectionStatusCode = decode(attributeOrNull(d4, "sectionStatusCode"));
             section.enrollmentStatus = decode(attributeOrNull(d4, "enrollmentStatus"));
 
-            var meetingTags = d4["meetings"]["meeting"];
-            if (!Array.isArray(meetingTags)) { meetingTags = [meetingTags]; }
+            var meetingTags = xmlTagToArray(d4["meetings"]["meeting"]);
             for (var l = 0; l < meetingTags.length; l++) {
               var meetingTag = meetingTags[l];
 
@@ -127,9 +148,7 @@ var run = async function(year, term, yearTerm, url, detailed) {
               meeting.buildingName = decode(attributeOrNull(meetingTag, "buildingName"));
 
               var instructors = [];
-              var instructorTags = meetingTag["instructors"]["instructor"];
-              if (!instructorTags) { instructorTags = []; }
-              else if (!Array.isArray(instructorTags)) { instructorTags = [instructorTags]; }
+              var instructorTags = xmlTagToArray(meetingTag["instructors"]["instructor"]);
               for (var m = 0; m < instructorTags.length; m++) {
                 instructors.push(instructorTags[m]["#text"]);
               }
