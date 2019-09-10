@@ -62,6 +62,8 @@ var run = async function(year, term, yearTerm, url, detailed) {
     var subjTag = d[i];
     var subject = subjTag["@_id"];
     var href = subjTag["@_href"];
+
+    if (subject != "YDSH") { continue; }
     
     var xml2 = await rp(href); await sleep(1000);
     var r2 = fastXmlParser.parse(xml2, {ignoreAttributes: false});
@@ -128,7 +130,8 @@ var run = async function(year, term, yearTerm, url, detailed) {
 
               var instructors = [];
               var instructorTags = meetingTag["instructors"]["instructor"];
-              if (!Array.isArray(instructorTags)) { instructorTags = [instructorTags]; }
+              if (!instructorTags) { instructorTags = []; }
+              else if (!Array.isArray(instructorTags)) { instructorTags = [instructorTags]; }
               for (var m = 0; m < instructorTags.length; m++) {
                 instructors.push(instructorTags[m]["#text"]);
               }
