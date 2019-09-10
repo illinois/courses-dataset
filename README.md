@@ -6,6 +6,11 @@ A collection of all courses offered by the University of Illinois.  There are tw
 1. The **course catalog** of all courses that may be offered at Illinois
 2. The **course schedule** of courses actually offered in a specific term at Illinois
 
+Download the full CSV dataset files:
+
+1. [Course Catalog Dataset](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-catalog/2019-fa.csv), CSV file
+2. [Course Schedule Dataset](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-schedule/2019-fa.csv), CSV file
+
 
 ## Data Format
 
