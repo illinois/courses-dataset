@@ -85,7 +85,10 @@ var run = async function(year, term, yearTerm, url, detailed) {
     var subjTag = d[i];
     var subject = subjTag["@_id"];
     var href = subjTag["@_href"];
+
+    if (subject != "ECE") { continue; }
     
+
     var xml2 = await rp(href); await sleep(1000);
     var r2 = fastXmlParser.parse(xml2, {ignoreAttributes: false});
     var d2 = xmlTagToArray( r2["ns2:subject"]["courses"]["course"] );
@@ -148,9 +151,11 @@ var run = async function(year, term, yearTerm, url, detailed) {
               meeting.buildingName = decode(attributeOrNull(meetingTag, "buildingName"));
 
               var instructors = [];
-              var instructorTags = xmlTagToArray(meetingTag["instructors"]["instructor"]);
-              for (var m = 0; m < instructorTags.length; m++) {
-                instructors.push(instructorTags[m]["#text"]);
+              if (typeof meetingTag["instructors"] == "object") {
+                var instructorTags = xmlTagToArray(meetingTag["instructors"]["instructor"]);
+                for (var m = 0; m < instructorTags.length; m++) {
+                  instructors.push(instructorTags[m]["#text"]);
+                }
               }
               meeting.instructors = instructors.join(";");
 
