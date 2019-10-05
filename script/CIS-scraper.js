@@ -86,9 +86,6 @@ var run = async function(year, term, yearTerm, url, detailed) {
     var subject = subjTag["@_id"];
     var href = subjTag["@_href"];
 
-    if (subject != "ECE") { continue; }
-    
-
     var xml2 = await rp(href); await sleep(1000);
     var r2 = fastXmlParser.parse(xml2, {ignoreAttributes: false});
     var d2 = xmlTagToArray( r2["ns2:subject"]["courses"]["course"] );
