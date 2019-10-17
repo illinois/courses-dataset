@@ -10,6 +10,7 @@ Download the full CSV dataset files:
 
 1. [Download the full catalog as a single CSV file](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-catalog/2019-fa.csv)
 2. Download the full course schedule as a single CSV file:
+    - [Spring 2020 Schedule](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-schedule/2020-sp.csv)
     - [Fall 2019 Schedule](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-schedule/2019-fa.csv)
 
 

@@ -192,7 +192,8 @@ var run = async function(year, term, yearTerm, url, detailed) {
 };
 
 
-run(2019, "Fall", "2019-fa", "https://courses.illinois.edu/cisapp/explorer/schedule/2019/fall.xml", true);
+run(2020, "Spring", "2020-sp", "https://courses.illinois.edu/cisapp/explorer/schedule/2020/spring.xml", true);
+//run(2019, "Fall", "2019-fa", "https://courses.illinois.edu/cisapp/explorer/schedule/2019/fall.xml", true);
 
 //run(2019, "Fall", "2019-fa", "https://courses.illinois.edu/cisapp/explorer/catalog/2019/fall.xml", true);
 //run(2018, "Fall", "2018-fa", "https://courses.illinois.edu/cisapp/explorer/catalog/2018/fall.xml", false);
