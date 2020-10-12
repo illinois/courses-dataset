@@ -4,10 +4,8 @@ var decode = require('unescape');
 var fastXmlParser = require('fast-xml-parser');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
-function sleep(ms){
-  return new Promise(resolve=>{
-      setTimeout(resolve,ms)
-  });
+function sleep(ms) {
+  return new Promise( (resolve) => { setTimeout(resolve,ms) } );
 };
 
 function attributeOrNull(d, a1, a2) {
@@ -43,7 +41,6 @@ function xmlTagToArray(d) {
 }
 
 
-
 var run = async function(year, term, yearTerm, url, detailed) {
   const csvWriter = createCsvWriter({
     path: yearTerm + ".csv",
@@ -64,9 +61,12 @@ var run = async function(year, term, yearTerm, url, detailed) {
       {id: 'sectionNumber', title: 'Section'},
       {id: 'statusCode', title: 'Status Code'},
       {id: 'partOfTerm', title: 'Part of Term'},
+      {id: 'sectionTitle', title: 'Section Title'},
+      {id: 'sectionCreditHours', title: 'Section Credit Hours'},
       {id: 'sectionStatusCode', title: 'Section Status'},
       {id: 'enrollmentStatus', title: 'Enrollment Status'},
       {id: 'type', title: 'Type'},
+      {id: 'typeCode', title: 'Type Code'},
       {id: 'start', title: 'Start Time'},
       {id: 'end', title: 'End Time'},
       {id: 'daysOfTheWeek', title: 'Days of Week'},
@@ -130,6 +130,8 @@ var run = async function(year, term, yearTerm, url, detailed) {
             var d4 = r4["ns2:section"];
 
             section.sectionNumber = decode(attributeOrNull(d4, "sectionNumber"));
+            section.sectionTitle = decode(attributeOrNull(d4, "sectionTitle"));
+            section.sectionCreditHours = decode(attributeOrNull(d4, "creditHours"));
             section.statusCode = decode(attributeOrNull(d4, "statusCode"));
             section.partOfTerm = d4["partOfTerm"];
             section.sectionStatusCode = decode(attributeOrNull(d4, "sectionStatusCode"));
@@ -140,7 +142,8 @@ var run = async function(year, term, yearTerm, url, detailed) {
               var meetingTag = meetingTags[l];
 
               var meeting = {};
-              meeting.type = meetingTag["type"]["@_code"];
+              meeting.typeCode = meetingTag["type"]["@_code"];
+              meeting.type = decode(attributeOrNull(meetingTag, "type", "#text")); 
               meeting.start = decode(attributeOrNull(meetingTag, "start"));
               meeting.end = decode(attributeOrNull(meetingTag, "end"));
               meeting.daysOfTheWeek = decode(attributeOrNull(meetingTag, "daysOfTheWeek"));
@@ -177,7 +180,7 @@ var run = async function(year, term, yearTerm, url, detailed) {
           }
           console.log("Completed: " + course.subject + " " + course.number);
         } catch (e) {
-          console.log("!! FAILED !!: " + course.subject + " " + course.number);
+          console.error("!! FAILED !!: " + course.subject + " " + course.number);
           console.error(e);
         }
       } else {
