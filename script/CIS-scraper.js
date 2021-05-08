@@ -17,6 +17,13 @@ function attributeOrNull(d, a1, a2) {
   return null;
 }
 
+function removeCISLocal(hrefString){
+  var hrefReplace = hrefString.replace("cis.local/cisapi", "courses.illinois.edu/cisapp/explorer");
+    if(!hrefReplace.match(".xml")){
+      hrefReplace += ".xml";
+    }
+    return hrefReplace;
+}
 
 /*
 Using `fast-xml-parser`, different HTML blocks may be returned as different objects.
@@ -84,13 +91,8 @@ var run = async function(year, term, yearTerm, url, detailed) {
   for (var i = 0; i < d.length; i++) {
     var subjTag = d[i];
     var subject = subjTag["@_id"];
-    var href = subjTag["@_href"];
-    var hrefReplace1 = href.replace("cis.local/cisapi", "courses.illinois.edu/cisapp/explorer");
-    if(!hrefReplace1.match(".xml")){
-      hrefReplace1 += ".xml";
-    }
-
-    var xml2 = await rp(hrefReplace1); await sleep(100);
+    var href = removeCISLocal(subjTag["@_href"]);
+    var xml2 = await rp(href); await sleep(10);
     var r2 = fastXmlParser.parse(xml2, {ignoreAttributes: false});
     var d2 = xmlTagToArray( r2["ns2:subject"]["courses"]["course"] );
 
@@ -107,16 +109,12 @@ var run = async function(year, term, yearTerm, url, detailed) {
       var courseTag = d2[j];
       course.number = courseTag["@_id"];
       course.name = courseTag["#text"];
-      course.href = courseTag["@_href"];
+      course.href = removeCISLocal(courseTag["@_href"]);
 
       if (detailed) {
         // Parse Course:
         try {
-          var hrefReplace2 = course.href.replace("cis.local/cisapi", "courses.illinois.edu/cisapp/explorer");
-          if(!hrefReplace2.match(".xml")){
-            hrefReplace2 += ".xml";
-          }
-          var xml3 = await rp(hrefReplace2); await sleep(100);
+          var xml3 = await rp(course.href); await sleep(10);
           var r3 = fastXmlParser.parse(xml3, {ignoreAttributes: false});
           var d3 = r3["ns2:course"];
           course.description = decode(attributeOrNull(d3, "description"));
@@ -130,14 +128,10 @@ var run = async function(year, term, yearTerm, url, detailed) {
             var sectionTag = sectionTagList[k];
 
             var section = {};
-            section.href = sectionTag["@_href"];
-            var hrefReplace = section.href.replace("cis.local/cisapi", "courses.illinois.edu/cisapp/explorer");
-            if(!hrefReplace.match(".xml")){
-              hrefReplace += ".xml";
-            }
+            section.href = removeCISLocal(sectionTag["@_href"]);
             section.crn = sectionTag["@_id"];
 
-            var xml4 = await rp(hrefReplace); await sleep(100);
+            var xml4 = await rp(section.href); await sleep(10);
             var r4 = fastXmlParser.parse(xml4, {ignoreAttributes: false});
             var d4 = r4["ns2:section"];
 
@@ -207,7 +201,7 @@ var run = async function(year, term, yearTerm, url, detailed) {
 };
 
 
-run(2021, "Spring", "2021-sp", "https://courses.illinois.edu/cisapp/explorer/schedule/2021/spring.xml", true);
+run(2021, "Fall", "2021-fa", "https://courses.illinois.edu/cisapp/explorer/schedule/2021/fall.xml", true);
 //run(2019, "Fall", "2019-fa", "https://courses.illinois.edu/cisapp/explorer/schedule/2019/fall.xml", true);
 
 //run(2019, "Fall", "2019-fa", "https://courses.illinois.edu/cisapp/explorer/catalog/2019/fall.xml", true);
