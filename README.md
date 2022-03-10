@@ -5,14 +5,13 @@ A collection of all courses offered by the University of Illinois.  Contains dat
 
 Download the full CSV dataset files:
 
-- [Spring 2022](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-schedule/2022-sp.csv)
-- [Fall 2021](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-schedule/2021-fa.csv)
-
-- [Spring 2021](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-schedule/2021-sp.csv)
-- [Fall 2020](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-schedule/2020-fa.csv)
-
-- [Spring 2020](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-schedule/2020-sp.csv)
-- [Fall 2019](https://raw.githubusercontent.com/illinois/course-catalog-dataset/master/course-schedule/2019-fa.csv)
+- [Fall 2022](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2022-fa.csv)
+- [Spring 2022](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2022-sp.csv)
+- [Fall 2021](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2021-fa.csv)
+- [Spring 2021](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2021-sp.csv)
+- [Fall 2020](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2020-fa.csv)
+- [Spring 2020](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2020-sp.csv)
+- [Fall 2019](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2019-fa.csv)
 
 
 ## Data Format
