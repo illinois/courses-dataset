@@ -5,7 +5,6 @@ A collection of all courses offered by the University of Illinois.  Contains dat
 
 Download the full CSV dataset files:
 
-- [Fall 2022](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2022-fa.csv)
 - [Spring 2022](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2022-sp.csv)
 - [Fall 2021](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2021-fa.csv)
 - [Spring 2021](https://raw.githubusercontent.com/illinois/courses-dataset/master/course-schedule/2021-sp.csv)

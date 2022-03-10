@@ -201,7 +201,7 @@ var run = async function(year, term, yearTerm, url, detailed) {
 };
 
 
-run(2022, "Fall", "2022-sp", "https://courses.illinois.edu/cisapp/explorer/schedule/2022/spring.xml", true);
+run(2022, "Spring", "2022-sp", "https://courses.illinois.edu/cisapp/explorer/schedule/2022/spring.xml", true);
 //run(2021, "Fall", "2021-fa", "https://courses.illinois.edu/cisapp/explorer/schedule/2021/fall.xml", true);
 //run(2019, "Fall", "2019-fa", "https://courses.illinois.edu/cisapp/explorer/schedule/2019/fall.xml", true);
 
